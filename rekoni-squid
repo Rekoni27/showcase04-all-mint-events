@@ -1,0 +1,12 @@
+npm install -g @subsquid/cli
+sqd auth -k <key>
+sqd init rekoni-squid --template evm
+export const VITALIK_ETH_TOPIC = '0x000000000000000000000000d8da6bf26964af9d7eed9e03e53415d37aa96045'
+
+export const processor = new EvmBatchProcessor()
+  .setGateway(lookupArchive('eth-mainnet'))
+  .addLog({
+    topic0: [erc20abi.events.Transfer.topic],
+    topic2: [VITALIK_ETH_TOPIC],
+  })
+sqd deploy --org pg_54c80d7b-898c-4e20-8b54-2e282184b997 ./rekoni-squid
